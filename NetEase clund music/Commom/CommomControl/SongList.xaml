@@ -1,0 +1,309 @@
+﻿<UserControl x:Class="NetEase_clund_music.Commom.CommomControl.SongList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetEase_clund_music.Commom.CommomControl"
+             xmlns:commomControl="clr-namespace:NetEase_clund_music.Commom.CommomControl"
+             xmlns:converter="clr-namespace:NetEase_clund_music.Tools.ConverterHelper"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" FontFamily="Comic sans ms">
+    <UserControl.Resources>
+        <FontFamily x:Key="iconFont">pack://application:,,,/ResuourceHome\Fonts\iconfont.ttf#iconfont</FontFamily>
+
+        <converter:StrTimeToDate x:Key="StrToDate"/>
+        <converter:StringToimagesource x:Key="StrToImage"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0,28">
+            <Border Width="200" Height="200" BorderThickness="3" BorderBrush="#30000000" CornerRadius="3" Margin="28,0" VerticalAlignment="Top">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding Album.blurPicUrl,Converter={StaticResource StrToImage}}" Stretch="UniformToFill"/>
+                </Border.Background>
+            </Border>
+
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,12">
+                    <Border BorderThickness="0.5" BorderBrush="{DynamicResource ProgressColor}" Padding="6,2" CornerRadius="2" VerticalAlignment="Center">
+                        <TextBlock Foreground="{DynamicResource ProgressColor}" FontSize="11">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="歌单"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CustomType}" Value="1">
+                                            <Setter Property="Text" Value="专辑"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Border>
+                    <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" FontWeight="SemiBold" Text="{Binding Album.name}" Foreground="{StaticResource FontColorb}" FontSize="20" Margin="5,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel" >
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CustomType}" Value="1">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <Border Width="35" Height="35" CornerRadius="20">
+                        <Border.Background>
+                            <ImageBrush ImageSource="pack://application:,,,/ResuourceHome/images/gd2.jpg"/>
+                        </Border.Background>
+                    </Border>
+
+                    <Button Style="{StaticResource EmptyStyleInButton}" Foreground="{StaticResource FontColor}" Margin="5,0,15,0" BorderThickness="0" FontSize="13">
+                        <TextBlock Text="派大星_Vc" MaxWidth="120" TextTrimming="CharacterEllipsis"/>
+                    </Button>
+
+                    <TextBlock Text="2017-02-28创建" VerticalAlignment="Center" Foreground="{StaticResource FontColorc}"/>
+                </StackPanel>
+
+                <WrapPanel>
+                    <WrapPanel.Resources>
+                        <Style TargetType="Button" x:Key="MoveBorderColor_Button" BasedOn="{StaticResource EmptyStyleInButton}">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Foreground" Value="{StaticResource FontColorc}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </WrapPanel.Resources>
+
+                    <Button Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" Foreground="White" x:Name="PlayAll">
+                        <Border CornerRadius="3" Background="{StaticResource ProgressColor}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="{StaticResource iconFont}" Text="&#xE607;" VerticalAlignment="Center" FontSize="15" Margin="8,0"/>
+                                <TextBlock Text="播放全部" VerticalAlignment="Center"/>
+                                <Border Width="0.5" Background="#20FFFFFF" Margin="8,0"/>
+                                <TextBlock Text="+" FontSize="18" Margin="0,0,8,2"/>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+
+                    <Button Style="{StaticResource MoveBorderColor_Button}" x:Name="AllStart" Margin="15,0,0,0">
+                        <Border CornerRadius="3" Background="#50000000" Padding="10,5">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xe6e7;" FontFamily="{StaticResource iconFont}" VerticalAlignment="Center" FontSize="15" Margin="0,0,5,0"/>
+                                <TextBlock Text="收藏" VerticalAlignment="Center"/>
+                                <TextBlock Text="(0)" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+
+                    <Button Style="{StaticResource MoveBorderColor_Button}" Margin="15,0">
+                        <Border CornerRadius="3" Background="#50000000" Padding="10,5">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xe686;" FontFamily="{StaticResource iconFont}" VerticalAlignment="Center" FontSize="15" Margin="0,0,5,0"/>
+                                <TextBlock Text="分享" VerticalAlignment="Center"/>
+                                <TextBlock Text="(0)" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+
+                    <Button Style="{StaticResource MoveBorderColor_Button}">
+                        <Border CornerRadius="3" Background="#50000000" Padding="10,5">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xe61b;" FontFamily="{StaticResource iconFont}" VerticalAlignment="Center" FontSize="15" Margin="0,0,5,0"/>
+                                <TextBlock Text="下载全部" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                </WrapPanel>
+
+                <StackPanel x:Name="tagAndreak">
+                    <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                        <TextBlock Foreground="{StaticResource FontColorb}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="标签 : "/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CustomType}" Value="1">
+                                            <Setter Property="Text" Value="歌手 : "/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Album.artist.name}" Foreground="{StaticResource FontColor}" Margin="3,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <TextBlock Text="简介 : " Foreground="{StaticResource FontColorb}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="简介 : "/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CustomType}" Value="1">
+                                            <Setter Property="Text" Value="时间 : "/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Album.publishTime,Converter={StaticResource StrToDate}}" Foreground="{StaticResource FontColor}" Margin="3,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Margin="20,0,0,0" TextBlock.Foreground="{StaticResource FontColorc}" TextBlock.FontSize="11" x:Name="xiazaiCount">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel" >
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CustomType}" Value="1">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <TextBlock Text="歌曲数" Margin="0,0,0,5"/>
+                <TextBlock Text="564" HorizontalAlignment="Right"/>
+            </StackPanel>
+            <Border Width="1" Background="#20999999" Height="35" VerticalAlignment="Top" Margin="10,0"/>
+            <StackPanel TextBlock.Foreground="{StaticResource FontColorc}" TextBlock.FontSize="11" x:Name="bofangCount">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel" >
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CustomType}" Value="1">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <TextBlock Text="播放数" Margin="0,0,0,5"/>
+                <TextBlock Text="8688" HorizontalAlignment="Right"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,15,0,0">
+            <ListBox ItemsPanel="{DynamicResource searchhistoryBoxPanel}" ItemContainerStyle="{DynamicResource searchhistoryBox}" Background="Transparent"
+                 BorderThickness="0" x:Name="TitleList" HorizontalAlignment="Left" Margin="30,0,0,0" SelectionChanged="TitleList_SelectionChanged">
+                <ListBoxItem Content="歌曲列表" x:Name="dataGridItem"/>
+                <ListBoxItem Content="评论(0)" x:Name="commentsItem"/>
+                <ListBoxItem Content="专辑详情" x:Name="albumDetailItem"/>
+                <ListBoxItem Content="收藏者" x:Name="collectorsItem">
+                    <ListBoxItem.Style>
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource searchhistoryBox}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DataContext.CustomType,RelativeSource={RelativeSource AncestorType=ListBox,Mode=FindAncestor}}" Value="1">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBoxItem.Style>
+                </ListBoxItem>
+            </ListBox>
+
+            <Border VerticalAlignment="Bottom" Height="2" Background="{StaticResource ProgressColor}" Width="0" HorizontalAlignment="Left" x:Name="borderSubscript">
+                <Border.RenderTransform>
+                    <TranslateTransform/>
+                </Border.RenderTransform>
+            </Border>
+
+            <Border VerticalAlignment="Bottom" Height="1" Background="#15999999"/>
+
+            <Canvas Width="160" Height="22" Margin="0,0,30,0"  Grid.Row="1" x:Name="StrechCanvas" HorizontalAlignment="Right">
+                <Canvas.Style>
+                    <Style TargetType="Canvas">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CustomType}" Value="1">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Canvas.Style>
+                <Border Padding="6,0,0,0" Background="Black" CornerRadius="10" Width="160" Height="22" Canvas.Left="0">
+                    <TextBox Background="Transparent" Tag="搜索我的音乐云盘" CaretBrush="White" BorderThickness="0" Foreground="{StaticResource HeaderFontColor}" 
+                                             VerticalContentAlignment="Center" Style="{DynamicResource SuperTextBox}" x:Name="StreachTextbox"/>
+                </Border>
+                <Button Style="{StaticResource EmptyStyleInButton}" HorizontalAlignment="Right" Content="&#xE651;" FontFamily="{StaticResource iconFont}" BorderThickness="0"
+                                Foreground="Gray" FontSize="15" Margin="0,0,5,0" Canvas.Right="0" Canvas.Top="3"/>
+            </Canvas>
+        </Grid>
+
+        <Border BorderThickness="0" BorderBrush="#15FFFFFF" CornerRadius="2"  Grid.Row="2" x:Name="DataGridBorder" Visibility="Collapsed" Margin="-20,0,0,0" >
+            <commomControl:PlayDataGrid ItemsSource="{Binding Album.songs}" RowStyle="{StaticResource PithyDataGrid_Row}" 
+                                                CellStyle="{StaticResource PithyDataGrid_Cell}" Style="{StaticResource PlayDtGrid}"/>
+        </Border>
+
+        <Border Grid.Row="2" x:Name="CommentsModel" Visibility="Collapsed"  Margin="-20,0,0,0">
+            <StackPanel Margin="30,15,40,0" >
+                <Grid x:Name="discussHidemodel" Background="{StaticResource darkColora}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Border Width="8" Height="8" Background="{Binding Background,ElementName=discussHidemodel}" RenderTransformOrigin="0,0" VerticalAlignment="Top" HorizontalAlignment="Right">
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="45"/>
+                                <TranslateTransform Y="-5" X="-5"/>
+                            </TransformGroup>
+                        </Border.RenderTransform>
+                    </Border>
+
+                    <Border Margin="12,10" Background="{StaticResource popupBackground}" CornerRadius="1">
+                        <Grid>
+                            <TextBox FontSize="11" Background="Transparent" CaretBrush="White" BorderThickness="0" TextWrapping="Wrap" Padding="5,4,0,0" 
+                                 Foreground="{StaticResource TitleFontColor}" Height="50"/>
+                            <TextBlock Text="140" Foreground="{StaticResource FontColor}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20,0,4,4"/>
+                        </Grid>
+                    </Border>
+
+                    <Grid Grid.Row="1">
+                        <StackPanel  HorizontalAlignment="Left" Margin="12,0,0,20" Orientation="Horizontal">
+                            <StackPanel.Resources>
+                                <Style TargetType="Button" BasedOn="{StaticResource EmptyStyleInButton}">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="VerticalAlignment" Value="Top"/>
+                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="Foreground" Value="{StaticResource FontColor}"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <Button Content="😶" FontSize="16"/>
+                            <Button Content="@"  Margin="10,0"/>
+                            <Button Content="#"/>
+                        </StackPanel>
+                        <Button HorizontalAlignment="Right" Style="{StaticResource EmptyStyleInButton}" VerticalAlignment="Top" BorderThickness="0"
+                                                                                     Foreground="{StaticResource TitleFontColor}" Padding="10,5" Content="评论" Background="{StaticResource popupBackground}" Margin="0,0,12,0"/>
+                    </Grid>
+                </Grid>
+
+                <commomControl:CommentControl Margin="0,15,0,0" Width="1420"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="2" x:Name="CollectorsModel" Visibility="Collapsed"  Margin="-20,0,0,0">
+            <TextBlock HorizontalAlignment="Center" Margin="0,100,0,0" Text="暂无收藏者" FontSize="25" Foreground="{StaticResource FontColorc}" FontFamily="华文行楷"/>
+        </Border>
+
+        <Border Grid.Row="2" x:Name="AlbumDetails" Visibility="Collapsed"  Margin="-20,0,0,0">
+            <Grid Margin="30,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock Text="专辑介绍" Foreground="{StaticResource FontColorb}" FontWeight="SemiBold" FontSize="15" Margin="0,10"/>
+
+                <TextBox BorderThickness="0" IsReadOnly="True" Text="{Binding Album.description,StringFormat= a    {0}}" Background="Transparent" 
+                         Grid.Row="1" Foreground="{StaticResource FontColor}" TextWrapping="Wrap" FontSize="14" TextBlock.LineHeight="26" TextBlock.LineStackingStrategy="BlockLineHeight"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

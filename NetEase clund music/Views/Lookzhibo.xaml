@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="NetEase_clund_music.Views.Lookzhibo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetEase_clund_music.Views"
+             xmlns:CommomContrl="clr-namespace:NetEase_clund_music.Commom.CommomControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" FontFamily="Comic sans ms">
+    <Grid Margin="20,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Look直播" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,0"/>
+            <TextBlock Text="在这里，看见音乐" Foreground="{StaticResource FontColorb}" Margin="10,5,0,0" VerticalAlignment="Center"/>
+        </StackPanel>
+        <Button Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" HorizontalAlignment="Right" Content="更多 &gt;" Foreground="{StaticResource FontColor}"/>
+        <Border BorderThickness="0,0,0,1" BorderBrush="#15FFFFFF" Margin="0,0,0,5"/>
+
+        <CommomContrl:LookLook PreviewMouseWheel="listbox_PreviewMouseWheel" Grid.Row="1"/>
+    </Grid>
+</UserControl>

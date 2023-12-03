@@ -1,0 +1,443 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1F65EC6D-6EC8-4009-8BD3-86CEA38B1F3D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>NetEase_clund_music</RootNamespace>
+    <AssemblyName>NetEase clund music</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Commom\AnimationHelper.cs" />
+    <Compile Include="Commom\AttchedProperty\ScrollViewerBehavior.cs" />
+    <Compile Include="Commom\CommandBase.cs" />
+    <Compile Include="Commom\CommomControl\CommentControl.xaml.cs">
+      <DependentUpon>CommentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Commom\CommomControl\CustomControl\AlbumButton.cs" />
+    <Compile Include="Commom\CommomControl\CustomControl\ArtistPageAlbumView.cs" />
+    <Compile Include="Commom\CommomControl\CustomControl\CustomButtonBase.cs" />
+    <Compile Include="Commom\CommomControl\CustomControl\MVButton.cs" />
+    <Compile Include="Commom\CommomControl\CustomControl\SongerButton.cs" />
+    <Compile Include="Commom\CommomControl\LoadGrid.xaml.cs">
+      <DependentUpon>LoadGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Commom\CommomControl\LoadingControl.xaml.cs">
+      <DependentUpon>LoadingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Commom\CommomControl\LookLook.xaml.cs">
+      <DependentUpon>LookLook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Commom\CommomControl\LyricControl.xaml.cs">
+      <DependentUpon>LyricControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Commom\CommomControl\MVranking.xaml.cs">
+      <DependentUpon>MVranking.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Commom\CommomControl\PlayDataGrid.xaml.cs">
+      <DependentUpon>PlayDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Commom\CommomControl\RectangleLook.xaml.cs">
+      <DependentUpon>RectangleLook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Commom\CommomControl\SongList.xaml.cs">
+      <DependentUpon>SongList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Db\localDb.cs" />
+    <Compile Include="Db\MusicHelperDb.cs" />
+    <Compile Include="Model\album.cs" />
+    <Compile Include="Model\AlbumResult.cs" />
+    <Compile Include="Model\artist.cs" />
+    <Compile Include="Model\ArtistResult.cs" />
+    <Compile Include="Model\Exclusiveover.cs" />
+    <Compile Include="Model\MusicHelperModel\ArtistalbumResult.cs" />
+    <Compile Include="Model\Singer.cs" />
+    <Compile Include="Model\song.cs" />
+    <Compile Include="Model\SongData.cs" />
+    <Compile Include="Model\SongList.cs" />
+    <Compile Include="Model\SongResult.cs" />
+    <Compile Include="ResuourceHome\PropertyHelper\Btn_Attached.cs" />
+    <Compile Include="ResuourceHome\PropertyHelper\type_Attached.cs" />
+    <Compile Include="Tools\apiHelper\Music163Helper.cs" />
+    <Compile Include="Tools\CacheHelper.cs" />
+    <Compile Include="Tools\ConverterHelper\DoubleToDouble.cs" />
+    <Compile Include="Tools\ConverterHelper\ListAutoIndex.cs" />
+    <Compile Include="Tools\ConverterHelper\StringBinString.cs" />
+    <Compile Include="Tools\ConverterHelper\StringToimagesource.cs" />
+    <Compile Include="Tools\ConverterHelper\StrIntToMinuteandSecond.cs" />
+    <Compile Include="Tools\ConverterHelper\UserDiscussConverter.cs" />
+    <Compile Include="ViewModel\ArtistPageViewModel.cs" />
+    <Compile Include="ViewModel\FindMusicViewModel.cs" />
+    <Compile Include="ViewModel\FindMusic\SongList_ViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\PersonalFmViewModel.cs" />
+    <Compile Include="ViewModel\QueryResultViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Views\ArtistPage.xaml.cs">
+      <DependentUpon>ArtistPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DownloadManagement.xaml.cs">
+      <DependentUpon>DownloadManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FindMusic.xaml.cs">
+      <DependentUpon>FindMusic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FindMusicUserControl\HostStation.cs" />
+    <Compile Include="Views\FindMusicUserControl\LatestMusic_UserControl.xaml.cs">
+      <DependentUpon>LatestMusic_UserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FindMusicUserControl\RankingList_UserControl.xaml.cs">
+      <DependentUpon>RankingList_UserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FindMusicUserControl\Recommend_UserContrl.xaml.cs">
+      <DependentUpon>Recommend_UserContrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FindMusicUserControl\Singer_UserControl.xaml.cs">
+      <DependentUpon>Singer_UserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FindMusicUserControl\SongList_UserControl.xaml.cs">
+      <DependentUpon>SongList_UserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FriendDynamic.xaml.cs">
+      <DependentUpon>FriendDynamic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LikeMusic.xaml.cs">
+      <DependentUpon>LikeMusic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LocalMusic.xaml.cs">
+      <DependentUpon>LocalMusic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Lookzhibo.xaml.cs">
+      <DependentUpon>Lookzhibo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MusicCloundDisk.xaml.cs">
+      <DependentUpon>MusicCloundDisk.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MusicDetails.xaml.cs">
+      <DependentUpon>MusicDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MyCollect.xaml.cs">
+      <DependentUpon>MyCollect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PersonalFM.xaml.cs">
+      <DependentUpon>PersonalFM.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QueryResultControl.xaml.cs">
+      <DependentUpon>QueryResultControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VideoControl.xaml.cs">
+      <DependentUpon>VideoControl.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Commom\CommomControl\CommentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Commom\CommomControl\LoadGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Commom\CommomControl\LoadingControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Commom\CommomControl\LookLook.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Commom\CommomControl\LyricControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Commom\CommomControl\MVranking.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Commom\CommomControl\PlayDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Commom\CommomControl\RectangleLook.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Commom\CommomControl\SongList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="ResuourceHome\StyleResource\ControlResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResuourceHome\StyleResource\CustomControlResource\CustomButtonResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ArtistPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DownloadManagement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FindMusic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FindMusicUserControl\HostStation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FindMusicUserControl\LatestMusic_UserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FindMusicUserControl\RankingList_UserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FindMusicUserControl\Recommend_UserContrl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FindMusicUserControl\Singer_UserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FindMusicUserControl\SongList_UserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FriendDynamic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LikeMusic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LocalMusic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Lookzhibo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MusicCloundDisk.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MusicDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MyCollect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PersonalFM.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\QueryResultControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\VideoControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Resource Include="ResuourceHome\Fonts\iconfont.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ResuourceHome\images\Afflatus4.jpg" />
+    <Resource Include="ResuourceHome\images\Afflatus9.jpg" />
+    <Resource Include="ResuourceHome\images\bb1.jpg" />
+    <Resource Include="ResuourceHome\images\bhzj1.jpg" />
+    <Resource Include="ResuourceHome\images\bhzj2.jpg" />
+    <Resource Include="ResuourceHome\images\blj1.jpg" />
+    <Resource Include="ResuourceHome\images\car1.jpg" />
+    <Resource Include="ResuourceHome\images\car2.jpg" />
+    <Resource Include="ResuourceHome\images\car3.jpg" />
+    <Resource Include="ResuourceHome\images\cat1.jpg" />
+    <Resource Include="ResuourceHome\images\cb3.png" />
+    <Resource Include="ResuourceHome\images\cb4.jpg" />
+    <Resource Include="ResuourceHome\images\Cowboy11.jpg" />
+    <Resource Include="ResuourceHome\images\Cowboy9.png" />
+    <Resource Include="ResuourceHome\images\cy1.jpg" />
+    <Resource Include="ResuourceHome\images\cyx1.jpg" />
+    <Resource Include="ResuourceHome\images\dm1.jpg" />
+    <Resource Include="ResuourceHome\images\dm2.jpg" />
+    <Resource Include="ResuourceHome\images\down1.jpg" />
+    <Resource Include="ResuourceHome\images\down2.jpg" />
+    <Resource Include="ResuourceHome\images\gd1.jpg" />
+    <Resource Include="ResuourceHome\images\gd10.jpg" />
+    <Resource Include="ResuourceHome\images\gd11.jpg" />
+    <Resource Include="ResuourceHome\images\gd13.jpg" />
+    <Resource Include="ResuourceHome\images\gd14.jpg" />
+    <Resource Include="ResuourceHome\images\gd2.jpg" />
+    <Resource Include="ResuourceHome\images\gd3.jpg" />
+    <Resource Include="ResuourceHome\images\gd4.jpg" />
+    <Resource Include="ResuourceHome\images\gd5.jpg" />
+    <Resource Include="ResuourceHome\images\gd6.jpg" />
+    <Resource Include="ResuourceHome\images\gd7.jpg" />
+    <Resource Include="ResuourceHome\images\gd8.jpg" />
+    <Resource Include="ResuourceHome\images\gd9.jpg" />
+    <Resource Include="ResuourceHome\images\mn.jpg" />
+    <Resource Include="ResuourceHome\images\mn1.jpg" />
+    <Resource Include="ResuourceHome\images\mn10.jpg" />
+    <Resource Include="ResuourceHome\images\mn11.jpg" />
+    <Resource Include="ResuourceHome\images\mn12.jpg" />
+    <Resource Include="ResuourceHome\images\mn13.jpg" />
+    <Resource Include="ResuourceHome\images\mn14.jpg" />
+    <Resource Include="ResuourceHome\images\mn2.jpg" />
+    <Resource Include="ResuourceHome\images\mn3.jpg" />
+    <Resource Include="ResuourceHome\images\mn4.jpg" />
+    <Resource Include="ResuourceHome\images\mn5.jpg" />
+    <Resource Include="ResuourceHome\images\mn7.jpg" />
+    <Resource Include="ResuourceHome\images\mn8.jpg" />
+    <Resource Include="ResuourceHome\images\mn9.jpg" />
+    <Resource Include="ResuourceHome\images\null1.jpg" />
+    <Resource Include="ResuourceHome\images\om1.jpg" />
+    <Resource Include="ResuourceHome\images\om2.jpg" />
+    <Resource Include="ResuourceHome\images\om3.jpg" />
+    <Resource Include="ResuourceHome\images\qz1.jpg" />
+    <Resource Include="ResuourceHome\images\srdz.jpg" />
+    <Resource Include="ResuourceHome\images\wallhaven-42xp5g.jpg" />
+    <Resource Include="ResuourceHome\images\wide\21090901.jpg" />
+    <Resource Include="ResuourceHome\images\wide\21090902.jpeg" />
+    <Resource Include="ResuourceHome\images\wide\21090903s.jpg" />
+    <Resource Include="ResuourceHome\images\wide\21090904s.jpeg" />
+    <Resource Include="ResuourceHome\images\wide\21090905.jpeg" />
+    <Resource Include="ResuourceHome\images\wide\21090906.jpg" />
+    <Resource Include="ResuourceHome\images\wide\Afflatus1.jpg" />
+    <Resource Include="ResuourceHome\images\wide\cb4.jpg" />
+    <Resource Include="ResuourceHome\images\wide\Cowboy11.jpg" />
+    <Resource Include="ResuourceHome\images\wide\Cowboy2.png" />
+    <Resource Include="ResuourceHome\images\wide\wallhaven-n6r73q.png" />
+    <Resource Include="ResuourceHome\images\wide\wallhaven-z8ql8w.jpg" />
+    <Resource Include="ResuourceHome\images\xjnz1.jpg" />
+    <Resource Include="ResuourceHome\images\xjnz3.jpg" />
+    <Resource Include="ResuourceHome\images\xjnz4.jpg" />
+    <Resource Include="ResuourceHome\images\xx1.jpg" />
+    <Resource Include="ResuourceHome\images\xxx1.jpg" />
+    <Resource Include="ResuourceHome\images\yx1.jpg" />
+    <Resource Include="ResuourceHome\images\zb1.jpg" />
+    <Resource Include="ResuourceHome\images\zb2.jpg" />
+    <Resource Include="ResuourceHome\images\zgr.jpg" />
+    <Resource Include="ResuourceHome\images\zgr2.jpg" />
+    <Resource Include="ResuourceHome\images\zgr3.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

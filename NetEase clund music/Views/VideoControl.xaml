@@ -1,0 +1,432 @@
+﻿<UserControl x:Class="NetEase_clund_music.Views.VideoControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetEase_clund_music.Views"
+             xmlns:ComomControl="clr-namespace:NetEase_clund_music.Commom.CommomControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="1800" d:DesignWidth="800" FontFamily="Comic sans ms" Loaded="VideoControl_Loaded">
+    <UserControl.Resources>
+        <FontFamily x:Key="iconFont">../ResuourceHome\Fonts\iconfont.ttf#iconfont</FontFamily>
+    </UserControl.Resources>
+    
+    <Grid Margin="20,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Margin="0,5,0,0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource borderBrusha}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel.Resources>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource EmptyToggleButton}">
+                            <Setter Property="Foreground" Value="{StaticResource FontColorb}"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Padding" Value="10,8"/>
+                            <Setter Property="Margin" Value="10,0"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource FontColorb}" Width="50" Margin="0,-1,0,0">
+                        <Border.RenderTransform>
+                            <TranslateTransform X="-360" x:Name="border"/>
+                        </Border.RenderTransform>
+                    </Border>
+
+                    <RadioButton Content="视频" x:Name="VideoButton">
+                        <RadioButton.Triggers>
+                            <EventTrigger RoutedEvent="RadioButton.Checked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="X" To="60" Duration="0:0:0.4">
+                                            <DoubleAnimation.EasingFunction>
+                                                <BackEase Amplitude="0.3" EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </RadioButton.Triggers>
+                    </RadioButton>
+
+                    <RadioButton Content="MV" x:Name="MovieButton">
+                        <RadioButton.Triggers>
+                            <EventTrigger RoutedEvent="RadioButton.Checked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="X" To="125" Duration="0:0:0.4">
+                                            <DoubleAnimation.EasingFunction>
+                                                <BackEase Amplitude="0.3" EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </RadioButton.Triggers>
+                    </RadioButton>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!--视频-->
+        <Grid  PreviewMouseDown="SongList_PreviewMouseDown" ButtonBase.Click="SongList_Click" Background="Transparent" Grid.Row="1" x:Name="VideoModel" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Button Style="{StaticResource EmptyStyleInButton}" HorizontalAlignment="Left" VerticalAlignment="Center" x:Name="showModelButton"
+                Foreground="{StaticResource FontColorb}" BorderThickness="0" FontSize="11" Background="{StaticResource popupBackground}">
+                    <StackPanel Orientation="Horizontal" x:Name="showModelStackPanel">
+                        <TextBlock Text="华语"  Margin="10,5,5,5"/>
+                        <TextBlock Text="&#xea5e;" FontFamily="{StaticResource iconFont}"
+                           RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0" Foreground="{StaticResource FontColorb}">
+                            <TextBlock.RenderTransform>
+                                <RotateTransform Angle="180"/>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="5,0">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button" BasedOn="{StaticResource EmptyStyleInButton}">
+                            <Setter Property="Padding" Value="15,0"/>
+                            <Setter Property="Foreground" Value="{StaticResource FontColorc}"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Width" Value="1"/>
+                        <Setter Property="Height" Value="12"/>
+                        <Setter Property="Background" Value="{StaticResource FontColorc}"/>
+                    </Style>
+                    </StackPanel.Resources>
+                    <TextBlock Text="热门标签：" Foreground="{StaticResource FontColorb}"/>
+                    <Button Content="现场"/>
+                    <Border/>
+                    <Button Content="流行"/>
+                    <Border/>
+                    <Button Content="摇滚"/>
+                    <Border/>
+                    <Button Content="民谣"/>
+                    <Border/>
+                    <Button Content="电子"/>
+                    <Border/>
+                    <Button Content="另类/独立"/>
+                    <Border/>
+                    <Button Content="轻音乐"/>
+                    <Border/>
+                    <Button Content="综艺"/>
+                    <Border/>
+                    <Button Content="影视原声"/>
+                    <Border/>
+                    <Button Content="ACG"/>
+                </StackPanel>
+
+                <ComomControl:RectangleLook Grid.Row="2" PreviewMouseWheel="listbox_PreviewMouseWheel" Width="800"/>
+            </Grid>
+
+        <!--MV-->
+        <Grid Background="Transparent" Grid.Row="1" x:Name="MovieModel" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <!--最新MV-->
+            <Border Grid.Row="1" BorderThickness="0,0,0,0.5" BorderBrush="{StaticResource borderBrusha}">
+                <StackPanel  Orientation="Horizontal" VerticalAlignment="Top" Margin="5,20,5,5">
+                    <StackPanel.Resources>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource RadioButtona}">
+                            <Setter Property="Padding" Value="15,0"/>
+                            <Setter Property="Foreground" Value="{StaticResource FontColorc}"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+                      
+                        </Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Width" Value="1"/>
+                            <Setter Property="Height" Value="12"/>
+                            <Setter Property="Background" Value="{StaticResource FontColorc}"/>
+                            <Setter Property="VerticalAlignment" Value="Bottom"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock Text="最新MV" Foreground="{StaticResource FontColorb}" FontSize="16" FontWeight="SemiBold" Margin="0,0,5,0"/>
+                    <RadioButton Content="内地" IsChecked="True"/>
+                    <Border/>
+                    <RadioButton Content="港台"/>
+                    <Border/>
+                    <RadioButton Content="欧美"/>
+                    <Border/>
+                    <RadioButton Content="日本"/>
+                    <Border/>
+                    <RadioButton Content="韩国"/>
+                </StackPanel>
+            </Border>
+            <Button Content="更多 >" Grid.Row="1" Width="50" Height="20" Style="{StaticResource EmptyStyleInButton}" Foreground="{StaticResource FontColorc}" HorizontalAlignment="Right"
+                   BorderThickness="0" Margin="0,0,0,5" VerticalAlignment="Bottom"/>
+            <ComomControl:RectangleLook Grid.Row="2" PreviewMouseWheel="listbox_PreviewMouseWheel" Width="800"/>
+            
+            <!--热播MV-->
+            <Border Grid.Row="3" BorderThickness="0,0,0,0.5" BorderBrush="{StaticResource borderBrusha}">
+                <StackPanel  Orientation="Horizontal" VerticalAlignment="Top" Margin="5,10,5,5">
+                    <TextBlock Text="热播MV" Foreground="{StaticResource FontColorb}" FontSize="16" FontWeight="SemiBold" Margin="0,0,5,0"/>
+                </StackPanel>
+            </Border>
+            <Button Content="更多 >" Grid.Row="3" Width="50" Height="20" Style="{StaticResource EmptyStyleInButton}" Foreground="{StaticResource FontColorc}" HorizontalAlignment="Right"
+                   BorderThickness="0" Margin="0,0,0,5" VerticalAlignment="Bottom"/>
+            <ComomControl:RectangleLook Grid.Row="4" PreviewMouseWheel="listbox_PreviewMouseWheel" Width="800"/>
+
+            <!--网易出品-->
+            <Border Grid.Row="5" BorderThickness="0,0,0,0.5" BorderBrush="{StaticResource borderBrusha}">
+                <StackPanel  Orientation="Horizontal" VerticalAlignment="Top" Margin="5,10,5,5">
+                    <TextBlock Text="网易出品" Foreground="{StaticResource FontColorb}" FontSize="16" FontWeight="SemiBold" Margin="0,0,5,0"/>
+                </StackPanel>
+            </Border>
+            <Button Content="更多 >" Grid.Row="5" Width="50" Height="20" Style="{StaticResource EmptyStyleInButton}" Foreground="{StaticResource FontColorc}" HorizontalAlignment="Right"
+                   BorderThickness="0" Margin="0,0,0,5" VerticalAlignment="Bottom"/>
+            <ComomControl:RectangleLook Grid.Row="6" PreviewMouseWheel="listbox_PreviewMouseWheel" Width="800"/>
+            
+            <!--MV排行榜-->
+            <Border Grid.Row="7" BorderThickness="0,0,0,0.5" BorderBrush="{StaticResource borderBrusha}">
+                <StackPanel  Orientation="Horizontal" VerticalAlignment="Top" Margin="5,20,5,5">
+                    <StackPanel.Resources>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource RadioButtona}">
+                            <Setter Property="Padding" Value="15,0"/>
+                            <Setter Property="Foreground" Value="{StaticResource FontColorc}"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+
+                        </Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Width" Value="1"/>
+                            <Setter Property="Height" Value="12"/>
+                            <Setter Property="Background" Value="{StaticResource FontColorc}"/>
+                            <Setter Property="VerticalAlignment" Value="Bottom"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock Text="MV排行榜" Foreground="{StaticResource FontColorb}" FontSize="16" FontWeight="SemiBold" Margin="0,0,5,0"/>
+                    <RadioButton Content="内地" IsChecked="True"/>
+                    <Border/>
+                    <RadioButton Content="港台"/>
+                    <Border/>
+                    <RadioButton Content="欧美"/>
+                    <Border/>
+                    <RadioButton Content="日本"/>
+                    <Border/>
+                    <RadioButton Content="韩国"/>
+                </StackPanel>
+            </Border>
+            <Button Content="更多 >" Grid.Row="7" Width="50" Height="20" Style="{StaticResource EmptyStyleInButton}" Foreground="{StaticResource FontColorc}" HorizontalAlignment="Right"
+                   BorderThickness="0" Margin="0,0,0,5" VerticalAlignment="Bottom"/>
+            <ComomControl:MVranking Grid.Row="8" PreviewMouseWheel="listbox_PreviewMouseWheel"/>
+        </Grid>
+
+        <!--HideMode-->
+        <Grid Grid.RowSpan="3" Width="420" x:Name="SongListModel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="400" Background="Transparent" Margin="0,90,0,0" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border Background="{StaticResource popupBackground}" CornerRadius="2" Grid.RowSpan="3"/>
+            <TextBlock Text="添加标签" Foreground="{StaticResource FontColorb}" VerticalAlignment="Center" Margin="15,0" FontSize="15"/>
+            <Border VerticalAlignment="Bottom" Height="0.5" Background="{StaticResource borderBrusha}"/>
+
+            <TextBlock Text="&#xea5e;" FontFamily="{StaticResource iconFont}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Foreground="{StaticResource popupBackground}">
+                <TextBlock.RenderTransform>
+                    <TranslateTransform Y="-13" X="38"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+
+            <ScrollViewer Grid.Row="1">
+                <ScrollViewer.Resources>
+                    <SolidColorBrush x:Key="ScrollBar.Static.Thumb" Color="#2F3134"/>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource myScrollBara}">
+
+                    </Style>
+                </ScrollViewer.Resources>
+                <StackPanel Margin="15,10">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button" BasedOn="{StaticResource EmptyStyleInButton}">
+                            <Setter Property="Foreground" Value="{StaticResource FontColorc}"/>
+                            <Setter Property="Padding" Value="0,6"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource borderBrusha}"/>
+                        </Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="{StaticResource FontColorb}"/>
+                            <Setter Property="FontSize" Value="14"/>
+                        </Style>
+                        <ItemsPanelTemplate x:Key="songLablePanel">
+                            <WrapPanel Width="400" IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                        <Style x:Key="songLable" TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="SnapsToDevicePixels" Value="True"/>
+                            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                            <Setter Property="Width" Value="75"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="FontSize" Value="11"/>
+                            <Setter Property="Margin" Value="2,2"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource borderBrusha}"/>
+                            <Setter Property="Foreground" Value="{StaticResource FontColorc}"/>
+                            <Setter Property="BorderThickness" Value="0.5"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <Grid ClipToBounds="True">
+                                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                                            Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                                <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                                            </Border>
+
+                                            <TextBlock Text="Hot"  FontWeight="SemiBold" FontSize="8" Foreground="#9C2728" HorizontalAlignment="Right" Margin="0,0,3,0" x:Name="hotLable" Visibility="Collapsed"/>
+
+                                            <Border Width="20" Height="0" x:Name="selectedLableBorder" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="DarkRed" RenderTransformOrigin="0.5,0.5">
+                                                <Border.RenderTransform>
+                                                    <TransformGroup>
+                                                        <RotateTransform Angle="-45"/>
+                                                        <TranslateTransform Y="9" X="9"/>
+                                                    </TransformGroup>
+                                                </Border.RenderTransform>
+                                            </Border>
+                                            <TextBlock Text="✔" FontSize="7" x:Name="selectedLableTextblock" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="White" Opacity="0"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderBrush" TargetName="Bd" Value="White"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                                    <Condition Property="IsSelected" Value="True"/>
+                                                </MultiTrigger.Conditions>
+                                                <MultiTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetName="selectedLableBorder" Storyboard.TargetProperty="Height"
+                                                                                     To="20" Duration="0:0:0.15"/>
+                                                            <DoubleAnimation Storyboard.TargetName="selectedLableTextblock" Storyboard.TargetProperty="Opacity"
+                                                                                     To="1" Duration="0:0:0.15" BeginTime="0:0:0.15"/>
+                                                            <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" To="#9C2728" Duration="0:0:0.15"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </MultiTrigger.EnterActions>
+                                                <MultiTrigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetName="selectedLableBorder" Storyboard.TargetProperty="Height"
+                                                                                      Duration="0:0:0.15" BeginTime="0:0:0.15"/>
+                                                            <DoubleAnimation Storyboard.TargetName="selectedLableTextblock" Storyboard.TargetProperty="Opacity"
+                                                                                     Duration="0:0:0.15" />
+                                                            <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" Duration="0:0:0.15"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </MultiTrigger.ExitActions>
+                                            </MultiTrigger>
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                            </Trigger>
+                                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                                <Setter Property="Background" Value="#08FFFFFF"/>
+                                                <Setter Property="Visibility" TargetName="hotLable" Value="Visible"/>
+                                            </Trigger>
+
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Button Content="全部视频" BorderThickness="0.5"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <ListBox ItemsPanel="{DynamicResource songLablePanel}" AlternationCount="3" ItemContainerStyle="{DynamicResource songLable}" Background="Transparent" BorderThickness="0"
+                                    HorizontalContentAlignment="Center" PreviewMouseWheel="listbox_PreviewMouseWheel">
+                            <ListBoxItem Content="流行"/>
+                            <ListBoxItem Content="摇滚"/>
+                            <ListBoxItem Content="民谣"/>
+                            <ListBoxItem Content="电子"/>
+                            <ListBoxItem Content="舞曲"/>
+                            <ListBoxItem Content="说唱"/>
+                            <ListBoxItem Content="轻音乐"/>
+                            <ListBoxItem Content="爵士"/>
+                            <ListBoxItem Content="乡村"/>
+                            <ListBoxItem Content="R&amp;B/Soul"/>
+                            <ListBoxItem Content="古典"/>
+                            <ListBoxItem Content="民族"/>
+                            <ListBoxItem Content="英伦"/>
+                            <ListBoxItem Content="金属"/>
+                            <ListBoxItem Content="蓝调"/>
+                            <ListBoxItem Content="雷鬼"/>
+                            <ListBoxItem Content="世界音乐"/>
+                            <ListBoxItem Content="拉丁"/>
+                            <ListBoxItem Content="New Age"/>
+                            <ListBoxItem Content="古风"/>
+                            <ListBoxItem Content="Bossa Nova"/>
+                            <ListBoxItem Content="华语" IsSelected="True"/>
+                            <ListBoxItem Content="欧美"/>
+                            <ListBoxItem Content="日语"/>
+                            <ListBoxItem Content="韩语"/>
+                            <ListBoxItem Content="粤语"/>
+                            <ListBoxItem Content="清晨"/>
+                            <ListBoxItem Content="夜晚"/>
+                            <ListBoxItem Content="学习"/>
+                            <ListBoxItem Content="工作"/>
+                            <ListBoxItem Content="午休"/>
+                            <ListBoxItem Content="下午茶"/>
+                            <ListBoxItem Content="地铁"/>
+                            <ListBoxItem Content="驾车"/>
+                            <ListBoxItem Content="运动"/>
+                            <ListBoxItem Content="旅行"/>
+                            <ListBoxItem Content="散步"/>
+                            <ListBoxItem Content="酒吧"/>
+                            <ListBoxItem Content="怀旧"/>
+                            <ListBoxItem Content="清新"/>
+                            <ListBoxItem Content="浪漫"/>
+                            <ListBoxItem Content="伤感"/>
+                            <ListBoxItem Content="治愈"/>
+                            <ListBoxItem Content="放松"/>
+                            <ListBoxItem Content="孤独"/>
+                            <ListBoxItem Content="感动"/>
+                            <ListBoxItem Content="兴奋"/>
+                            <ListBoxItem Content="快乐"/>
+                            <ListBoxItem Content="安静"/>
+                            <ListBoxItem Content="思念"/>
+                        </ListBox>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+   
+</UserControl>

@@ -1,0 +1,238 @@
+﻿<UserControl x:Class="NetEase_clund_music.Views.FindMusicUserControl.Singer_UserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetEase_clund_music.Views.FindMusicUserControl"
+             mc:Ignorable="d" 
+             d:DesignWidth="800" FontFamily="Comic sans ms">
+    <UserControl.Resources>
+        <FontFamily x:Key="iconFont">../../ResuourceHome\Fonts\iconfont.ttf#iconfont</FontFamily>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <!--查询条件-->
+        <Border Padding="0,15" BorderThickness="0,0,0,1" BorderBrush="#15ffffff">
+            <StackPanel>
+                <StackPanel.Resources>
+                    <ItemsPanelTemplate x:Key="signPanel">
+                        <WrapPanel Orientation="Horizontal" IsItemsHost="True" Width="{Binding Width,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    </ItemsPanelTemplate>
+
+                    <Style TargetType="Label">
+                        <Setter Property="Padding" Value="5,5"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="{StaticResource LiangColor}"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+
+                    <Style x:Key="QuerySignList" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="#20FFFFFF"/>
+                        <Setter Property="Foreground" Value="{StaticResource FontColor}"/>
+                        <Setter Property="BorderThickness" Value="1,0,0,0"/>
+                        <Setter Property="Padding" Value="15,2"/>
+                        <Setter Property="Margin" Value="0,3"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                <Condition Property="IsSelected" Value="False"/>
+                                            </MultiTrigger.Conditions>
+                                            <MultiTrigger.Setters>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </MultiTrigger.Setters>
+                                        </MultiTrigger>
+                                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                            <Setter Property="Background" Value="#05FFFFFF"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
+                                                                    To="White" Duration="0:0:0.15"/>
+                                                        <ColorAnimation Storyboard.TargetProperty="Background.Color"
+                                                                    To="#80000000" Duration="0:0:0.3"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
+                                                                    Duration="0:0:0.15"/>
+                                                        <ColorAnimation Storyboard.TargetProperty="Background.Color"
+                                                                    Duration="0:0:0.3"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </StackPanel.Resources>
+
+                <StackPanel Orientation="Horizontal" TextBlock.Foreground="{StaticResource FontColor}">
+                    <Label Content="语种：" VerticalAlignment="Center" BorderBrush="AntiqueWhite"/>
+
+                    <ListBox ItemContainerStyle="{DynamicResource QuerySignList}" AlternationCount="2" ItemsPanel="{StaticResource signPanel}" Background="Transparent" BorderThickness="0"
+                             PreviewMouseWheel="listbox_PreviewMouseWheel">
+                        <ListBoxItem Content="全部" IsSelected="True"/>
+                        <ListBoxItem Content="华语"/>
+                        <ListBoxItem Content="欧美"/>
+                        <ListBoxItem Content="日本"/>
+                        <ListBoxItem Content="韩国"/>
+                        <ListBoxItem Content="其他"/>
+                    </ListBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" TextBlock.Foreground="{StaticResource FontColor}" Margin="0,5">
+                    <Label Content="分类：" VerticalAlignment="Center" BorderBrush="White"/>
+                    <ListBox ItemContainerStyle="{DynamicResource QuerySignList}" AlternationCount="2" ItemsPanel="{StaticResource signPanel}" Background="Transparent" BorderThickness="0"
+                             PreviewMouseWheel="listbox_PreviewMouseWheel">
+                        <ListBoxItem Content="全部" IsSelected="True"/>
+                        <ListBoxItem Content="男歌手"/>
+                        <ListBoxItem Content="女歌手"/>
+                        <ListBoxItem Content="乐队组合"/>
+                    </ListBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" TextBlock.Foreground="{StaticResource FontColor}" >
+                    <Label Content="筛选：" VerticalAlignment="Top" BorderBrush="White"/>
+                    <ListBox Width="750" ItemContainerStyle="{DynamicResource QuerySignList}" ItemsPanel="{StaticResource signPanel}" Background="Transparent" BorderThickness="0"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1" AlternationCount="2" PreviewMouseWheel="listbox_PreviewMouseWheel">
+                        <ListBoxItem Content="热门" IsSelected="True"/>
+                        <ListBoxItem Content="A"/>
+                        <ListBoxItem Content="B"/>
+                        <ListBoxItem Content="C"/>
+                        <ListBoxItem Content="D"/>
+                        <ListBoxItem Content="E"/>
+                        <ListBoxItem Content="F"/>
+                        <ListBoxItem Content="G"/>
+                        <ListBoxItem Content="H"/>
+                        <ListBoxItem Content="I"/>
+                        <ListBoxItem Content="J"/>
+                        <ListBoxItem Content="K"/>
+                        <ListBoxItem Content="L"/>
+                        <ListBoxItem Content="M"/>
+                        <ListBoxItem Content="N"/>
+                        <ListBoxItem Content="O"/>
+                        <ListBoxItem Content="P"/>
+                        <ListBoxItem Content="Q"/>
+                        <ListBoxItem Content="R"/>
+                        <ListBoxItem Content="S"/>
+                        <ListBoxItem Content="T"/>
+                        <ListBoxItem Content="U"/>
+                        <ListBoxItem Content="V"/>
+                        <ListBoxItem Content="W"/>
+                        <ListBoxItem Content="X"/>
+                        <ListBoxItem Content="Y"/>
+                        <ListBoxItem Content="Z"/>
+                        <ListBoxItem Content="#"/>
+                    </ListBox>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+            
+       <!--歌手列表-->
+        <Grid Grid.Row="1">
+            <ListBox Grid.Row="1" ItemContainerStyle="{DynamicResource Recommendsonglist}" ItemsPanel="{DynamicResource singlistPanel}" PreviewMouseWheel="listbox_PreviewMouseWheel"
+                     Width="800" ScrollViewer.VerticalScrollBarVisibility="Disabled"  Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <ListBox.Resources>
+                    <ItemsPanelTemplate x:Key="singlistPanel">
+                        <WrapPanel IsItemsHost="True" Width="{Binding Width,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    </ItemsPanelTemplate>
+
+                    <Style x:Key="Recommendsonglist" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="Background" Value="#343434"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Margin" Value="0,15,17,0"/>
+                        <Setter Property="Width" Value="140"/>
+                        <Setter Property="Height" Value="190"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="55"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" 
+                                                Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" CornerRadius="1">
+                                        </Border>
+
+                                        <Image Margin="1" Source="../../ResuourceHome/images/gd2.jpg" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+
+                                        <Grid Grid.Row="1" Margin="0,5,0,0">
+                                            <TextBlock Text="Su-Isn a.500" TextWrapping="Wrap" Foreground="{StaticResource FontColorb}"/>
+                                            <TextBlock Text="&#xe635;" FontFamily="{StaticResource iconFont}" HorizontalAlignment="Right" FontSize="15" Foreground="{StaticResource ProgressColor}"/>
+                                        </Grid>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                        To="White" Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                       Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+            </ListBox>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,93 @@
+﻿<Grid x:Class="NetEase_clund_music.Commom.CommomControl.LoadGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetEase_clund_music.Commom.CommomControl"
+             mc:Ignorable="d">
+    <Grid.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <Storyboard Storyboard.TargetName="oneborder" Storyboard.TargetProperty="Opacity" RepeatBehavior="Forever" >
+                        <DoubleAnimation To="1" Duration="0:0:0.80"/>
+                        <DoubleAnimation To="0.16" BeginTime="0:0:0.80" Duration="0:0:0.80"/>
+                    </Storyboard>
+                    <Storyboard Storyboard.TargetName="twoborder" Storyboard.TargetProperty="Opacity" RepeatBehavior="Forever" BeginTime="0:0:0.11">
+                        <DoubleAnimation To="1" Duration="0:0:0.80"/>
+                        <DoubleAnimation To="0.16" BeginTime="0:0:0.80" Duration="0:0:0.80"/>
+                    </Storyboard>
+                    <Storyboard Storyboard.TargetName="threeborder" Storyboard.TargetProperty="Opacity" RepeatBehavior="Forever" BeginTime="0:0:0.22">
+                        <DoubleAnimation To="1" Duration="0:0:0.80"/>
+                        <DoubleAnimation To="0.16" BeginTime="0:0:0.80" Duration="0:0:0.80"/>
+                    </Storyboard>
+                    <Storyboard Storyboard.TargetName="fourborder" Storyboard.TargetProperty="Opacity" RepeatBehavior="Forever" BeginTime="0:0:0.33">
+                        <DoubleAnimation To="1" Duration="0:0:0.80"/>
+                        <DoubleAnimation To="0.16" BeginTime="0:0:0.80" Duration="0:0:0.80"/>
+                    </Storyboard>
+                    <Storyboard Storyboard.TargetName="fiveborder" Storyboard.TargetProperty="Opacity" RepeatBehavior="Forever" BeginTime="0:0:0.44">
+                        <DoubleAnimation To="1" Duration="0:0:0.80"/>
+                        <DoubleAnimation To="0.16" BeginTime="0:0:0.80" Duration="0:0:0.80"/>
+                    </Storyboard>
+                    <Storyboard Storyboard.TargetName="sixborder" Storyboard.TargetProperty="Opacity" RepeatBehavior="Forever" BeginTime="0:0:0.55">
+                        <DoubleAnimation To="1" Duration="0:0:0.80"/>
+                        <DoubleAnimation To="0.16" BeginTime="0:0:0.80" Duration="0:0:0.80"/>
+                    </Storyboard>
+                    <Storyboard Storyboard.TargetName="sevenborder" Storyboard.TargetProperty="Opacity" RepeatBehavior="Forever" BeginTime="0:0:0.66">
+                        <DoubleAnimation To="1" Duration="0:0:0.80"/>
+                        <DoubleAnimation To="0.16" BeginTime="0:0:0.80" Duration="0:0:0.80"/>
+                    </Storyboard>
+                    <Storyboard Storyboard.TargetName="eightborder" Storyboard.TargetProperty="Opacity" RepeatBehavior="Forever" BeginTime="0:0:0.77">
+                        <DoubleAnimation To="1" Duration="0:0:0.80"/>
+                        <DoubleAnimation To="0.16" BeginTime="0:0:0.80" Duration="0:0:0.80"/>
+                    </Storyboard>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Grid.Triggers>
+    <Grid.Resources>
+        <Style TargetType="Border">
+            <Setter Property="Width" Value="{Binding LoadingWidth,RelativeSource={RelativeSource AncestorType=local:LoadGrid,Mode=FindAncestor}}"/>
+            <Setter Property="Height" Value="2"/>
+            <Setter Property="RenderTransformOrigin" Value="1.7,0.5"/>
+            <Setter Property="Background" Value="{Binding LoadingBackground,RelativeSource={RelativeSource AncestorType=local:LoadGrid,Mode=FindAncestor}}"/>
+            <Setter Property="Opacity" Value="0.16"/>
+        </Style>
+    </Grid.Resources>
+    <Border x:Name="oneborder">
+        <Border.RenderTransform>
+            <RotateTransform Angle="90"/>
+        </Border.RenderTransform>
+    </Border>
+    <Border x:Name="twoborder">
+        <Border.RenderTransform>
+            <RotateTransform Angle="45"/>
+        </Border.RenderTransform>
+    </Border>
+    <Border x:Name="threeborder"/>
+    <Border x:Name="fourborder">
+        <Border.RenderTransform>
+            <RotateTransform Angle="315"/>
+        </Border.RenderTransform>
+    </Border>
+    <Border x:Name="fiveborder">
+        <Border.RenderTransform>
+            <RotateTransform Angle="270"/>
+        </Border.RenderTransform>
+    </Border>
+    <Border x:Name="sixborder">
+        <Border.RenderTransform>
+            <RotateTransform Angle="225"/>
+        </Border.RenderTransform>
+    </Border>
+    <Border x:Name="sevenborder">
+        <Border.RenderTransform>
+            <RotateTransform Angle="180"/>
+        </Border.RenderTransform>
+    </Border>
+    <Border x:Name="eightborder">
+        <Border.RenderTransform>
+            <RotateTransform Angle="135"/>
+        </Border.RenderTransform>
+    </Border>
+</Grid>

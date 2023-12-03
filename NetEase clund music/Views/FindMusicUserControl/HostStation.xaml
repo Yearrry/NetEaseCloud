@@ -1,0 +1,1168 @@
+﻿<UserControl x:Class="NetEase_clund_music.Views.FindMusicUserControl.HostStation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetEase_clund_music.Views.FindMusicUserControl"
+             mc:Ignorable="d" 
+             d:DesignWidth="800" FontFamily="Comic sans ms" Loaded="HostStation_Loaded">
+    <UserControl.Resources>
+        <FontFamily x:Key="iconFont">../../ResuourceHome\Fonts\iconfont.ttf#iconfont</FontFamily>
+    </UserControl.Resources>
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="MouseEnter" SourceName="LunBoGrid">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="leftmoveButton" Storyboard.TargetProperty="Opacity" 
+                                     To="1" Duration="0:0:0.1"/>
+                    <DoubleAnimation Storyboard.TargetName="rightmoveButton" Storyboard.TargetProperty="Opacity"
+                                     To="1" Duration="0:0:0.1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="MouseLeave" SourceName="LunBoGrid">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="leftmoveButton" Storyboard.TargetProperty="Opacity"
+                                     Duration="0:0:0.1"/>
+                    <DoubleAnimation Storyboard.TargetName="rightmoveButton" Storyboard.TargetProperty="Opacity"
+                                     Duration="0:0:0.1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <!--轮播-->
+        <Grid x:Name="LunBoGrid" Height="220" MouseEnter="StopTimer" MouseLeave="StartTimer">
+            <ListBox  ItemsPanel="{DynamicResource searchhistoryBoxPanel}" ItemContainerStyle="{DynamicResource searchhistoryBox}" Background="Transparent"
+                 BorderThickness="0" x:Name="LunboListBox" VerticalAlignment="Bottom" Margin="0,0,0,5" PreviewMouseWheel="listbox_PreviewMouseWheel">
+                <ListBox.Resources>
+                    <Style x:Key="searchhistoryBox" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                        <Setter Property="Foreground" Value="{StaticResource FontColor}"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                        <Setter Property="Width" Value="380"/>
+                        <Setter Property="Height" Value="190"/>
+                        <Setter Property="Panel.ZIndex" Value="1"/>
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid VerticalAlignment="Bottom" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Border x:Name="Bd" CornerRadius="2" Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                        </Border>
+                                        <Border Background="#40999999" x:Name="boxitemButton" CornerRadius="2"/>
+                                        <Border VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="#CC4A4A" Padding="10,2" CornerRadius="8,1,1,8" Margin="0,0,-2,15">
+                                            <TextBlock Text="{TemplateBinding Content}" FontSize="11" FontWeight="SemiBold" Foreground="White"/>
+                                        </Border>
+                                        <Button Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="Foreground.Color" To="White"
+                                                                                                Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
+                                                                                                Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <Int32Animation Storyboard.TargetProperty="(Panel.ZIndex)"
+                                                                     To="3" Duration="0:0:0"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Width"
+                                                                     To="560" Duration="0:0:0.3"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                                     To="200" Duration="0:0:0.3"/>
+                                                        <ColorAnimation Storyboard.TargetName="boxitemButton" Storyboard.TargetProperty="Background.Color"
+                                                                    To="Transparent" Duration="0:0:0.1"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <Int32Animation Storyboard.TargetProperty="(Panel.ZIndex)"
+                                                                      Duration="0:0:0"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Width"
+                                                                    Duration="0:0:0.3"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                                    Duration="0:0:0.3"/>
+                                                        <ColorAnimation Storyboard.TargetName="boxitemButton" Storyboard.TargetProperty="Background.Color"
+                                                                     Duration="0:0:0.1"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <ItemsPanelTemplate x:Key="searchhistoryBoxPanel">
+                        <Grid IsItemsHost="True" Width="{Binding Width,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    </ItemsPanelTemplate>
+                </ListBox.Resources>
+            </ListBox>
+            <Button Style="{StaticResource EmptyStyleInButton}" HorizontalAlignment="Left" Width="120" Height="185" VerticalAlignment="Bottom" x:Name="leftmoveButton"
+                BorderThickness="0" FontFamily="{StaticResource iconFont}" Foreground="#90FFFFFF" FontSize="25" Click="leftMove" Opacity="0">
+                <TextBlock Text="&#xea5e;" RenderTransformOrigin="0,1">
+                    <TextBlock.RenderTransform>
+                        <RotateTransform Angle="-90"/>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+            </Button>
+            <Button Style="{StaticResource EmptyStyleInButton}" HorizontalAlignment="Right" Width="120" Height="185" VerticalAlignment="Bottom" x:Name="rightmoveButton"
+                BorderThickness="0" FontFamily="{StaticResource iconFont}" Foreground="#90FFFFFF" FontSize="25" Click="RightMove" Opacity="0">
+                <TextBlock Text="&#xea5e;" RenderTransformOrigin="1,1">
+                    <TextBlock.RenderTransform>
+                        <RotateTransform Angle="90"/>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+            </Button>
+        </Grid>
+
+        <!--轮播Icon-->
+        <ListBox Grid.Row="1" ItemContainerStyle="{DynamicResource signByLunbo}" ItemsPanel="{DynamicResource signPanel}"   PreviewMouseWheel="listbox_PreviewMouseWheel"
+                 Background="Transparent" BorderThickness="0" HorizontalAlignment="Center" x:Name="signbyLunboList">
+            <ListBox.Resources>
+                <Style x:Key="signByLunbo" TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="SnapsToDevicePixels" Value="True"/>
+                    <Setter Property="Width" Value="20"/>
+                    <Setter Property="Height" Value="3"/>
+                    <Setter Property="Margin" Value="2,0"/>
+                    <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    <Setter Property="Background" Value="#60999999"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Grid ClipToBounds="True">
+                                    <Border x:Name="Bd" CornerRadius="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                        <TextBlock Visibility="Collapsed"/>
+                                    </Border>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetProperty="Background.Color"
+                                                                     To="#CCCCCcCC" Duration="0:0:0.15"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                        <Trigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetProperty="Background.Color"
+                                                                     Duration="0:0:0.15"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.ExitActions>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <ItemsPanelTemplate x:Key="signPanel">
+                    <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.Resources>
+        </ListBox>
+
+        <!--滚动菜单-->
+        <Grid Grid.Row="2" Height="70" Margin="0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Width="50" Grid.Column="1" HorizontalAlignment="Right" x:Name="RightBorder">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="#05000000" Offset="0"/>
+                        <GradientStop Color="#50000000" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <Border Width="0" Grid.Column="1" HorizontalAlignment="Left" x:Name="Leftborder">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                        <GradientStop Color="#05000000" Offset="0"/>
+                        <GradientStop Color="#30000000" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <StackPanel Orientation="Horizontal"  Grid.Column="1" x:Name="PrentStackpanel" Margin="5,0">
+
+                <Button Width="55" TextBlock.Foreground="#B82525" BorderThickness="0" Margin="0,0,5,0" x:Name="rankingButton">
+                    <Button.RenderTransform>
+                        <TranslateTransform X="0" x:Name="rankingListButtontrans"/>
+                    </Button.RenderTransform>
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource EmptyStyleInButton}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#25999999"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <StackPanel>
+                        <TextBlock FontFamily="{StaticResource iconFont}" Text="&#xe658;" FontSize="30" HorizontalAlignment="Center"/>
+                        <TextBlock Text="排行榜"/>
+                    </StackPanel>
+                </Button>
+
+                <ListBox x:Name="radioShowList" ItemsPanel="{DynamicResource radioPanel}" ItemContainerStyle="{DynamicResource radioStyle}"   PreviewMouseWheel="listbox_PreviewMouseWheel"
+                     Background="Transparent" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.Resources>
+                        <ItemsPanelTemplate x:Key="radioPanel">
+                            <StackPanel Orientation="Horizontal" IsItemsHost="True" RenderTransform="{Binding ElementName=rankingListButtontrans}"/>
+                        </ItemsPanelTemplate>
+                        <Style x:Key="radioStyle" TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="SnapsToDevicePixels" Value="True"/>
+                            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="{StaticResource FontColorc}"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Margin" Value="10,0"/>
+                            <Setter Property="Padding" Value="10,0"/>
+                            <Setter Property="FontSize" Value="22"/>
+                            <Setter Property="MinWidth" Value="60"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3"
+                                            Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock FontFamily="{StaticResource iconFont}" Text="&#xe66b;" FontSize="{TemplateBinding FontSize}" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{TemplateBinding Content}" FontSize="12" Margin="0,5,0,0" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#25999999"/>
+                                            </Trigger>
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                    </ListBox.Resources>
+                    <ListBoxItem Content="音乐推荐"/>
+                    <ListBoxItem Content="情感"/>
+                    <ListBoxItem Content="有声书"/>
+                    <ListBoxItem Content="脱口秀"/>
+                    <ListBoxItem Content="创作翻唱"/>
+                    <ListBoxItem Content="电音"/>
+                    <ListBoxItem Content="知识"/>
+                    <ListBoxItem Content="二次元"/>
+                    <ListBoxItem Content="明星专区"/>
+                    <ListBoxItem Content="生活"/>
+                    <ListBoxItem Content="亲子"/>
+                    <ListBoxItem Content="新闻资讯"/>
+                    <ListBoxItem Content="广播剧"/>
+                    <ListBoxItem Content="真事故事"/>
+                    <ListBoxItem Content="人文历史"/>
+                    <ListBoxItem Content="娱乐"/>
+                    <ListBoxItem Content="相声曲艺"/>
+                    <ListBoxItem Content="其他"/>
+                </ListBox>
+
+                <Button Padding="5,0" TextBlock.Foreground="#3782AC" BorderThickness="0" Margin="10,0,0,0" RenderTransform="{Binding ElementName=rankingListButtontrans}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource EmptyStyleInButton}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#25999999"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <StackPanel>
+                        <TextBlock FontFamily="{StaticResource iconFont}" Text="&#xe658;" FontSize="30" HorizontalAlignment="Center"/>
+                        <TextBlock Text="我要做主播"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <Button Width="25" BorderThickness="0" Background="#50000000" x:Name="leftbutton" Click="LeftButton_Click" >
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource EmptyStyleInButton}">
+                        <Setter Property="Foreground" Value="{StaticResource FontColorc}"/>
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource FontColorb}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#10000000"/>
+                                <Setter Property="Foreground" Value="#10FFFFFF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <TextBlock FontFamily="{StaticResource iconFont}" Text="&#xea5e;" FontSize="20" RenderTransformOrigin="0.5,0.5">
+                    <TextBlock.RenderTransform>
+                        <RotateTransform Angle="-90" />
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+            </Button>
+
+            <Button Grid.Column="2" Width="25" BorderThickness="0" Background="#50000000" Click="RightButton_Click" x:Name="rightButton">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource EmptyStyleInButton}">
+                        <Setter Property="Foreground" Value="{StaticResource FontColorc}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource FontColorb}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#10000000"/>
+                                <Setter Property="Foreground" Value="#10FFFFFF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <TextBlock FontFamily="{StaticResource iconFont}" Text="&#xea5e;" FontSize="20" RenderTransformOrigin="0.5,0.5">
+                    <TextBlock.RenderTransform>
+                        <RotateTransform Angle="90" />
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+            </Button>
+        </Grid>
+
+        <!--听听-->
+        <Grid Grid.Row="3" Height="230" Margin="0,15">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="听听" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <Button Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" HorizontalAlignment="Right" Content="更多 &gt;" Foreground="{StaticResource FontColor}"/>
+            <Border BorderThickness="0,0,0,1" BorderBrush="#15FFFFFF"/>
+
+            <ListBox Grid.Row="1" ItemContainerStyle="{DynamicResource Recommendsonglist}" ItemsPanel="{DynamicResource singlistPanel}" PreviewMouseWheel="listbox_PreviewMouseWheel"
+                     Width="800" ScrollViewer.VerticalScrollBarVisibility="Disabled"  Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <ListBox.Resources>
+                    <ItemsPanelTemplate x:Key="singlistPanel">
+                        <WrapPanel IsItemsHost="True" Width="{Binding Width,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    </ItemsPanelTemplate>
+
+                    <Style x:Key="Recommendsonglist" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="Background" Value="#343434"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Margin" Value="0,5,17,0"/>
+                        <Setter Property="Width" Value="140"/>
+                        <Setter Property="Height" Value="190"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="55"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" 
+                                                Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" CornerRadius="5,1,1,1">
+                                        </Border>
+
+                                        <Image Margin="1" Source="../../ResuourceHome/images/wide/Cowboy2.png" Stretch="UniformToFill" HorizontalAlignment="Left"/>
+
+                                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Padding="10,2" CornerRadius="5,0,5,0" TextBlock.Foreground="{StaticResource FontColorb}" Background="#FF2C55">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="直播中" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border VerticalAlignment="Bottom" HorizontalAlignment="Left" Padding="6,4" TextBlock.Foreground="{StaticResource FontColorb}" Background="#15000000">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="&#xe64a;" Margin="0,0,5,0" FontFamily="{StaticResource iconFont}"/>
+                                                <TextBlock Text="9527" FontSize="10" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <StackPanel Grid.Row="1">
+                                            <TextBlock Text="人美路子野，腰细又长，好看极了" Margin="0,5" TextTrimming="CharacterEllipsis" Foreground="{StaticResource FontColorb}"/>
+                                            <Button Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" HorizontalContentAlignment="Left">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Border Width="20" Height="20" CornerRadius="10">
+                                                        <Border.Background>
+                                                            <ImageBrush ImageSource="../../ResuourceHome/images/gd1.jpg" Stretch="UniformToFill" />
+                                                        </Border.Background>
+                                                    </Border>
+                                                    <TextBlock Text="ktc-2057" Foreground="{StaticResource FontColorb}" FontSize="10" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                        To="White" Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                       Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+            </ListBox>
+        </Grid>
+
+        <!--付费精品-->
+        <Grid Grid.Row="4" Height="360" Margin="0,15">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="付费精品" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <Button Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" HorizontalAlignment="Right" Content="更多 &gt;" Foreground="{StaticResource FontColor}"/>
+            <Border BorderThickness="0,0,0,1" BorderBrush="#15FFFFFF"/>
+
+            <ListBox Grid.Row="1" ItemContainerStyle="{DynamicResource Recommendsonglist}" ItemsPanel="{DynamicResource singlistPanel}" PreviewMouseWheel="listbox_PreviewMouseWheel"
+                     Width="800" ScrollViewer.VerticalScrollBarVisibility="Disabled"  Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <ListBox.Resources>
+                    <ItemsPanelTemplate x:Key="singlistPanel">
+                        <WrapPanel IsItemsHost="True" Width="{Binding Width,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    </ItemsPanelTemplate>
+
+                    <Style x:Key="Recommendsonglist" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="Background" Value="#343434"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Margin" Value="0,5,17,15"/>
+                        <Setter Property="Width" Value="375"/>
+                        <Setter Property="Height" Value="135"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid Width="135" Margin="3" x:Name="hegrid">
+                                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" 
+                                                Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" CornerRadius="5,1,1,1" >
+                                            </Border>
+
+                                            <Image Margin="1" Source="../../ResuourceHome/images/wide/21090905.jpeg" SnapsToDevicePixels="True" Stretch="UniformToFill"
+                                                   HorizontalAlignment="Center"/>
+
+                                            <Border VerticalAlignment="Bottom" Padding="6,4" TextBlock.Foreground="{StaticResource FontColorb}">
+                                                <Border.Background>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="#15000000" Offset="0"/>
+                                                        <GradientStop Color="#90000000" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="9月11日更新" FontSize="10" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+
+                                        <Border Grid.Column="1" Padding="10" Background="#40000000" CornerRadius="2,20,2,20" BorderThickness="1" x:Name="twoborder" BorderBrush="Transparent">
+                                            <StackPanel>
+                                                <TextBlock Text="Su-Isn - 500" Foreground="White" FontWeight="SemiBold" FontSize="14"/>
+                                                <StackPanel Margin="0,15" TextBlock.Foreground="{StaticResource FontColorc}">
+                                                    <TextBlock Text="活了一百万次的猫"/>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                                        <TextBlock Text="&#xe66a;" FontFamily="{StaticResource iconFont}" VerticalAlignment="Center" />
+                                                        <TextBlock Text="小行星蓝调 第一集" FontSize="11" Margin="5,0,0,0"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <TextBlock Text="￥ 12.9" Foreground="DarkRed" FontSize="16"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetName="twoborder" Storyboard.TargetProperty="BorderBrush.Color"
+                                                                        To="White" Duration="0:0:0.15"/>
+                                                        <ThicknessAnimation Storyboard.TargetName="hegrid" Storyboard.TargetProperty="Margin"
+                                                                            To="0,3,3,3" Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetName="twoborder" Storyboard.TargetProperty="BorderBrush.Color"
+                                                                       Duration="0:0:0.15"/>
+                                                        <ThicknessAnimation Storyboard.TargetName="hegrid" Storyboard.TargetProperty="Margin"
+                                                                           Duration="0:0:0.15" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+            </ListBox>
+        </Grid>
+
+        <!--电台个性推荐-->
+        <Grid Grid.Row="5" Height="230" >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="电台个性推荐" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <Button Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" HorizontalAlignment="Right" Content="更多 &gt;" Foreground="{StaticResource FontColor}"/>
+            <Border BorderThickness="0,0,0,1" BorderBrush="#15FFFFFF"/>
+
+            <ListBox Grid.Row="1" ItemContainerStyle="{DynamicResource Recommendsonglist}" ItemsPanel="{DynamicResource singlistPanel}" PreviewMouseWheel="listbox_PreviewMouseWheel"
+                     Width="800" ScrollViewer.VerticalScrollBarVisibility="Disabled"  Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <ListBox.Resources>
+                    <ItemsPanelTemplate x:Key="singlistPanel">
+                        <WrapPanel IsItemsHost="True" Width="{Binding Width,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    </ItemsPanelTemplate>
+
+                    <Style x:Key="Recommendsonglist" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="Background" Value="#343434"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Margin" Value="0,5,17,0"/>
+                        <Setter Property="Width" Value="140"/>
+                        <Setter Property="Height" Value="190"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="55"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" 
+                                                Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" CornerRadius="1">
+                                        </Border>
+
+                                        <Image Margin="1" Source="../../ResuourceHome/images/gd2.jpg" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+
+                                        <Border Height="25" VerticalAlignment="Bottom">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#05000000" Offset="0"/>
+                                                    <GradientStop Color="#40000000" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <TextBlock Text="MoomLight" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" Margin="5,0,0,0"/>
+                                        </Border>
+
+                                        <TextBlock Grid.Row="1" Text="【独家】 Moon music 首档音乐播客" Margin="0,5,0,0" TextWrapping="Wrap" Foreground="{StaticResource FontColorb}"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                        To="White" Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                       Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+            </ListBox>
+        </Grid>
+
+        <!--有声书-->
+        <Grid Grid.Row="6" Height="230" Margin="0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="有声书" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <Button Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" HorizontalAlignment="Right" Content="更多 &gt;" Foreground="{StaticResource FontColor}"/>
+            <Border BorderThickness="0,0,0,1" BorderBrush="#15FFFFFF"/>
+
+            <ListBox Grid.Row="1" ItemContainerStyle="{DynamicResource Recommendsonglist}" ItemsPanel="{DynamicResource singlistPanel}" PreviewMouseWheel="listbox_PreviewMouseWheel"
+                     Width="800" ScrollViewer.VerticalScrollBarVisibility="Disabled"  Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <ListBox.Resources>
+                    <ItemsPanelTemplate x:Key="singlistPanel">
+                        <WrapPanel IsItemsHost="True" Width="{Binding Width,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    </ItemsPanelTemplate>
+
+                    <Style x:Key="Recommendsonglist" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="Background" Value="#343434"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Margin" Value="0,5,17,0"/>
+                        <Setter Property="Width" Value="140"/>
+                        <Setter Property="Height" Value="190"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="55"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" 
+                                                Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" CornerRadius="5,1,1,1">
+                                        </Border>
+
+                                        <Image Margin="1" Source="../../ResuourceHome/images/gd14.jpg" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+
+                                        <Border Background="DarkRed" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5,1" CornerRadius="5,0,5,0" Margin="1">
+                                            <TextBlock Text="付费精品" Foreground="White"/>
+                                        </Border>
+
+                                        <Border Height="25" VerticalAlignment="Bottom">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#05000000" Offset="0"/>
+                                                    <GradientStop Color="#40000000" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <TextBlock Text="Maugham" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" Margin="5,0,0,0"/>
+                                        </Border>
+
+                                        <TextBlock Grid.Row="1" Text="在满地都是六便士的街上，他抬起头看到了月光。" FontSize="11" Margin="0,5,0,0" TextWrapping="Wrap" Foreground="{StaticResource FontColorb}"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                        To="White" Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                       Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+            </ListBox>
+        </Grid>
+
+        <!--创作翻唱-->
+        <Grid Grid.Row="7" Height="230">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="创作翻唱" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <Button Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" HorizontalAlignment="Right" Content="更多 &gt;" Foreground="{StaticResource FontColor}"/>
+            <Border BorderThickness="0,0,0,1" BorderBrush="#15FFFFFF"/>
+
+            <ListBox Grid.Row="1" ItemContainerStyle="{DynamicResource Recommendsonglist}" ItemsPanel="{DynamicResource singlistPanel}" PreviewMouseWheel="listbox_PreviewMouseWheel"
+                     Width="800" ScrollViewer.VerticalScrollBarVisibility="Disabled"  Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <ListBox.Resources>
+                    <ItemsPanelTemplate x:Key="singlistPanel">
+                        <WrapPanel IsItemsHost="True" Width="{Binding Width,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    </ItemsPanelTemplate>
+
+                    <Style x:Key="Recommendsonglist" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="Background" Value="#343434"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Margin" Value="0,5,17,0"/>
+                        <Setter Property="Width" Value="140"/>
+                        <Setter Property="Height" Value="190"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="55"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" 
+                                                Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" CornerRadius="1">
+                                        </Border>
+
+                                        <Image Margin="1" Source="../../ResuourceHome/images/gd1.jpg" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+
+                                        <Border Height="25" VerticalAlignment="Bottom">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#05000000" Offset="0"/>
+                                                    <GradientStop Color="#40000000" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <TextBlock Text="MoomLight" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" Margin="5,0,0,0"/>
+                                        </Border>
+
+                                        <TextBlock Grid.Row="1" Text="【独家】 Moon music 首档音乐播客" Margin="0,5,0,0" TextWrapping="Wrap" Foreground="{StaticResource FontColorb}"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                        To="White" Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                       Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+            </ListBox>
+        </Grid>
+
+        <!--音乐推荐-->
+        <Grid Grid.Row="8" Height="230" Margin="0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="音乐推荐" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <Button Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" HorizontalAlignment="Right" Content="更多 &gt;" Foreground="{StaticResource FontColor}"/>
+            <Border BorderThickness="0,0,0,1" BorderBrush="#15FFFFFF"/>
+
+            <ListBox Grid.Row="1" ItemContainerStyle="{DynamicResource Recommendsonglist}" ItemsPanel="{DynamicResource singlistPanel}" PreviewMouseWheel="listbox_PreviewMouseWheel"
+                     Width="800" ScrollViewer.VerticalScrollBarVisibility="Disabled"  Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <ListBox.Resources>
+                    <ItemsPanelTemplate x:Key="singlistPanel">
+                        <WrapPanel IsItemsHost="True" Width="{Binding Width,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    </ItemsPanelTemplate>
+
+                    <Style x:Key="Recommendsonglist" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="Background" Value="#343434"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Margin" Value="0,5,17,0"/>
+                        <Setter Property="Width" Value="140"/>
+                        <Setter Property="Height" Value="190"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="55"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" 
+                                                Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" CornerRadius="1">
+                                        </Border>
+
+                                        <Image Margin="1" Source="../../ResuourceHome/images/gd5.jpg" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+
+                                        <Border Height="25" VerticalAlignment="Bottom">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#05000000" Offset="0"/>
+                                                    <GradientStop Color="#40000000" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <TextBlock Text="MoomLight" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" Margin="5,0,0,0"/>
+                                        </Border>
+
+                                        <TextBlock Grid.Row="1" Text="【独家】 Moon music 首档音乐播客" Margin="0,5,0,0" TextWrapping="Wrap" Foreground="{StaticResource FontColorb}"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                        To="White" Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                       Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+            </ListBox>
+        </Grid>
+
+        <!--情感故事-->
+        <Grid Grid.Row="9" Height="230" >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="情感故事" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <Button Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" HorizontalAlignment="Right" Content="更多 &gt;" Foreground="{StaticResource FontColor}"/>
+            <Border BorderThickness="0,0,0,1" BorderBrush="#15FFFFFF"/>
+
+            <ListBox Grid.Row="1" ItemContainerStyle="{DynamicResource Recommendsonglist}" ItemsPanel="{DynamicResource singlistPanel}" PreviewMouseWheel="listbox_PreviewMouseWheel"
+                     Width="800" ScrollViewer.VerticalScrollBarVisibility="Disabled"  Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <ListBox.Resources>
+                    <ItemsPanelTemplate x:Key="singlistPanel">
+                        <WrapPanel IsItemsHost="True" Width="{Binding Width,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    </ItemsPanelTemplate>
+
+                    <Style x:Key="Recommendsonglist" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="Background" Value="#343434"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Margin" Value="0,5,17,0"/>
+                        <Setter Property="Width" Value="140"/>
+                        <Setter Property="Height" Value="190"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="55"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" 
+                                                Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" CornerRadius="1">
+                                        </Border>
+
+                                        <Image Margin="1" Source="../../ResuourceHome/images/gd7.jpg" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+
+                                        <Border Height="25" VerticalAlignment="Bottom">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#05000000" Offset="0"/>
+                                                    <GradientStop Color="#40000000" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <TextBlock Text="MoomLight" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" Margin="5,0,0,0"/>
+                                        </Border>
+
+                                        <TextBlock Grid.Row="1" Text="【独家】 Moon music 首档音乐播客" Margin="0,5,0,0" TextWrapping="Wrap" Foreground="{StaticResource FontColorb}"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                        To="White" Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                       Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+            </ListBox>
+        </Grid>
+
+        <!--脱口秀-->
+        <Grid Grid.Row="10" Height="230" Margin="0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="脱口秀" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <Button Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" HorizontalAlignment="Right" Content="更多 &gt;" Foreground="{StaticResource FontColor}"/>
+            <Border BorderThickness="0,0,0,1" BorderBrush="#15FFFFFF"/>
+
+            <ListBox Grid.Row="1" ItemContainerStyle="{DynamicResource Recommendsonglist}" ItemsPanel="{DynamicResource singlistPanel}" PreviewMouseWheel="listbox_PreviewMouseWheel"
+                     Width="800" ScrollViewer.VerticalScrollBarVisibility="Disabled"  Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <ListBox.Resources>
+                    <ItemsPanelTemplate x:Key="singlistPanel">
+                        <WrapPanel IsItemsHost="True" Width="{Binding Width,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    </ItemsPanelTemplate>
+
+                    <Style x:Key="Recommendsonglist" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="Background" Value="#343434"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Margin" Value="0,5,17,0"/>
+                        <Setter Property="Width" Value="140"/>
+                        <Setter Property="Height" Value="190"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="55"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" 
+                                                Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" CornerRadius="1">
+                                        </Border>
+
+                                        <Image Margin="1" Source="../../ResuourceHome/images/gd4.jpg" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+
+                                        <Border Height="25" VerticalAlignment="Bottom">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#05000000" Offset="0"/>
+                                                    <GradientStop Color="#40000000" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <TextBlock Text="MoomLight" VerticalAlignment="Center" Foreground="{StaticResource FontColorb}" Margin="5,0,0,0"/>
+                                        </Border>
+
+                                        <TextBlock Grid.Row="1" Text="【独家】 Moon music 首档音乐播客" Margin="0,5,0,0" TextWrapping="Wrap" Foreground="{StaticResource FontColorb}"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                        To="White" Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                       Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+            </ListBox>
+        </Grid>
+    </Grid>
+</UserControl>

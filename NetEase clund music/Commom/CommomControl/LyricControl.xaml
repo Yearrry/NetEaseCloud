@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="NetEase_clund_music.Commom.CommomControl.LyricControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetEase_clund_music.Commom.CommomControl"
+             xmlns:attched="clr-namespace:NetEase_clund_music.Commom.AttchedProperty"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="450">
+    <Grid>
+        <ScrollViewer x:Name="LyricScroll" attched:ScrollViewerBehavior.VerticalOffset="0">
+            <ScrollViewer.Resources>
+                <SolidColorBrush x:Key="ScrollBar.Static.Thumb" Color="#2F3134"/>
+                <Style TargetType="ScrollBar" BasedOn="{StaticResource myScrollBara}">
+
+                </Style>
+            </ScrollViewer.Resources>
+            <StackPanel x:Name="LyricParentControl">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="0,0,0,15"/>
+                        <Setter Property="FontSize" Value="13"/>
+                        <Setter Property="Foreground" Value="#90999999"/>
+                        <Setter Property="TextWrapping" Value="Wrap"/>
+                        <Setter Property="FontFamily" Value="Comic sans ms"/>
+                    </Style>
+                </StackPanel.Resources>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

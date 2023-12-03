@@ -1,0 +1,378 @@
+﻿<UserControl x:Class="NetEase_clund_music.Views.QueryResultControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetEase_clund_music.Views"
+             xmlns:commomControl ="clr-namespace:NetEase_clund_music.Commom.CommomControl"
+             xmlns:location="clr-namespace:NetEase_clund_music"
+             xmlns:converter ="clr-namespace:NetEase_clund_music.Tools.ConverterHelper"
+             mc:Ignorable="d" 
+             d:DesignWidth="800" FontFamily="Comic sans ms" Loaded="QueryResultControl_Loaded">
+    <UserControl.Resources>
+        <FontFamily x:Key="iconFont">../ResuourceHome\Fonts\iconfont.ttf#iconfont</FontFamily>
+
+        <converter:StrIntToMinuteandSecond x:Key="DurationToTime"/>
+        <converter:StringBinString x:Key="StringBinString"/>
+        <converter:StringToimagesource x:Key="StringToImage"/>
+        <converter:ValidationString x:Key="ValidationString"/>
+        
+        <ItemsPanelTemplate x:Key="newestPanel">
+            <StackPanel IsItemsHost="True"/>
+        </ItemsPanelTemplate>
+
+        <Style x:Key="ArtistListbox" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="5,7"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="1.8*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                    <Border Width="40" Height="40" CornerRadius="1"  Margin="25,0,15,0" SnapsToDevicePixels="True">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding picUrl}" Stretch="UniformToFill" x:Name="imagebrush"/>
+                                        </Border.Background>
+                                    </Border>
+
+                                    <TextBlock x:Name="songertext" Grid.Column="1" HorizontalAlignment="Left" Foreground="{StaticResource FontColorb}"
+                                                   VerticalAlignment="Center" Width="320" TextTrimming="CharacterEllipsis" FontSize="11">
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource StringBinString}">
+                                            <MultiBinding.Bindings>
+                                                <Binding Path="name"/>
+                                                <Binding Path="alias"/>
+                                            </MultiBinding.Bindings>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+
+                                <location:SongerButton Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" Grid.ColumnSpan="3" x:Name="songerbutton" Conditions="{Binding name}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#25000000"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#55000000"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="AlbumListbox" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="5,7"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="1.8*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Margin="25,0,15,0" x:Name="imagegrid" SnapsToDevicePixels="True">
+                                    <Canvas x:Name="ablumcanvas">
+                                        <Border Width="35" Height="35" CornerRadius="20" BorderThickness="0.5" BorderBrush="#50999999" Margin="12,3,0,0"/>
+                                        <Border Width="5" Height="12" Background="#20999999" Margin='37,2,0,0' VerticalAlignment="Top"/>
+                                        <Border Width="5" Height="12" Background="#20999999" Margin='37,0,0,2' Canvas.Bottom="0"/>
+                                    </Canvas>
+                                    <Border Width="40" Height="40" CornerRadius="1">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding blurPicUrl}" Stretch="UniformToFill" x:Name="imagebrush"/>
+                                        </Border.Background>
+                                    </Border>
+                                </Grid>
+
+                                <TextBlock x:Name="songertext" Grid.Column="1" HorizontalAlignment="Left" Foreground="{StaticResource FontColorb}"
+                                                   VerticalAlignment="Center" Width="320" TextTrimming="CharacterEllipsis" FontSize="11" Text="{Binding name}"/>
+                                
+                                <location:AlbumButton Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" Grid.ColumnSpan="3" x:Name="albumbutton" 
+                                                      CustomType="专辑" Album="{Binding Content,RelativeSource={RelativeSource AncestorType=ListBoxItem,Mode=FindAncestor}}"/>
+
+                                <location:SongerButton Grid.Column="2" HorizontalAlignment="Left" Foreground="{StaticResource FontColorc}" 
+                                                       Style="{StaticResource EmptyStyleInButton}" BorderThickness="0" x:Name="songerBtn" Conditions="{Binding artist.name}"
+                                                   VerticalAlignment="Center" FontSize="11">
+                                    <location:SongerButton.Content>
+                                        <MultiBinding Converter="{StaticResource StringBinString}">
+                                            <MultiBinding.Bindings>
+                                                <Binding Path="artist.name"/>
+                                                <Binding Path="artist.alias"/>
+                                            </MultiBinding.Bindings>
+                                        </MultiBinding>
+                                    </location:SongerButton.Content>
+                                </location:SongerButton>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#25000000"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#55000000"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                          
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+         <!--搜索结果介绍-->
+        <StackPanel Orientation="Horizontal" TextBlock.Foreground="{StaticResource FontColorb}" Margin="30,20">
+            <TextBlock Text="搜索"/>
+            <TextBlock Text="{Binding conditionla}" Foreground="{StaticResource skipTag}"/>
+            <TextBlock Text="{Binding FindCount,StringFormat=找到{0}个结果}"/>
+        </StackPanel>
+
+        <!--搜索结果分类-->
+        <Grid Grid.Row="1">
+            <ListBox ItemsPanel="{DynamicResource searchhistoryBoxPanel}" ItemContainerStyle="{DynamicResource searchhistoryBox}" Background="Transparent"
+                 BorderThickness="0" x:Name="TitleList" HorizontalAlignment="Left" Margin="30,0,0,0" SelectionChanged="TitleList_SelectionChanged">
+                <ListBoxItem Content="单曲" x:Name="songItem"/>
+                <ListBoxItem Content="歌手" x:Name="artistItem"/>
+                <ListBoxItem Content="专辑" x:Name="albumItem"/>
+                <ListBoxItem Content="视频" x:Name="videoItem"/>
+                <ListBoxItem Content="歌单" x:Name="songlistItem"/>
+                <ListBoxItem Content="歌词" x:Name="lyricItem"/>
+                <ListBoxItem Content="主播电台" x:Name="hostItem"/>
+                <ListBoxItem Content="用户" x:Name="usersItem"/>
+            </ListBox>
+
+            <Border VerticalAlignment="Bottom" Height="2" Background="{StaticResource ProgressColor}" Width="0" HorizontalAlignment="Left" x:Name="borderSubscript">
+                <Border.RenderTransform>
+                    <TranslateTransform/>
+                </Border.RenderTransform>
+            </Border>
+
+            <Border VerticalAlignment="Bottom" Height="1" Background="#15999999"/>
+
+        </Grid>
+
+        <!--搜索结果 根据结果类型 每个Border 对应一个搜索结果-->
+        <Border Grid.Row="2" x:Name="songborder" Visibility="Collapsed" Margin="-20,0,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel>
+                    <Border Padding="30,8">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#50000000" Offset="0"/>
+                                <GradientStop Color="#05000000" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock Text="最佳匹配" Foreground="{StaticResource FontColorc}" FontSize="13"/>
+                    </Border>
+
+                    <Border Padding="30,15">
+                        <WrapPanel>
+                            <location:SongerButton  Style="{StaticResource SongerCardBtn}" Cursor="Hand" DataContext="{Binding BestartistResult}"/>
+                        </WrapPanel>
+                    </Border>
+                </StackPanel>
+
+                <Border BorderThickness="0" BorderBrush="#15FFFFFF" CornerRadius="2"  Grid.Row="1" >
+                    <commomControl:PlayDataGrid ItemsSource="{Binding Songslist}" RowStyle="{StaticResource PithyDataGrid_Row}" 
+                                                CellStyle="{StaticResource PithyDataGrid_Cell}" Style="{StaticResource PlayDtGrid}"/>
+                </Border>
+
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Visibility="Collapsed" x:Name="artistborder" Margin="-20,0,0,0">
+            <ListBox ItemContainerStyle="{DynamicResource ArtistListbox}" ItemsPanel="{DynamicResource newestPanel}" Background="Transparent"  ItemsSource="{Binding ArtistsResult}"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" BorderBrush="#50999999" PreviewMouseWheel="listbox_PreviewMouseWheel">
+            </ListBox>
+        </Border>
+
+        <Border Grid.Row="2" Visibility="Collapsed" x:Name="albumborder" Margin="-20,0,0,0">
+            <ListBox ItemContainerStyle="{DynamicResource AlbumListbox}" ItemsPanel="{DynamicResource newestPanel}" Background="Transparent" ItemsSource="{Binding AlbumsResult}"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" BorderBrush="#50999999" PreviewMouseWheel="listbox_PreviewMouseWheel">
+            </ListBox>
+        </Border>
+        
+        <!--分页-->
+        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" Margin="0,20">
+            <StackPanel.Resources>
+                <Style x:Key="ClickButton" TargetType="Button" BasedOn="{StaticResource EmptyStyleInButton}">
+                    <Setter Property="BorderBrush" Value="{StaticResource borderBrusha}"/>
+                    <Setter Property="Width" Value="23"/>
+                    <Setter Property="Height" Value="23"/>
+                    <Setter Property="Foreground" Value="{StaticResource FontColorc}"/>
+                </Style>
+            </StackPanel.Resources>
+            
+            <Button FontFamily="{StaticResource iconFont}" x:Name="leftButton" 
+                        Content="&#xea5e;" RenderTransformOrigin="0.5,0.5" Command="{Binding BeforePage}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ClickButton}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Page}" Value="0">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.RenderTransform>
+                    <RotateTransform Angle="-90"/>
+                </Button.RenderTransform>
+            </Button>
+
+            <Grid Margin="5,0"  ClipToBounds="True" MaxWidth="385" Width="273" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Height="23"  Width="0" x:Name="startNum">
+                    <Button Width="27" BorderThickness="0"
+                        Foreground="{StaticResource FontColorc}" Content="1">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource EmptyStyleInButton}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="{StaticResource borderBrusha}"/>
+                                        <Setter Property="Foreground" Value="{StaticResource LiangColor }"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <TextBlock Width="27" FontFamily="{StaticResource iconFont}" Text="&#xe639;" VerticalAlignment="Center" Padding="5" Foreground="{StaticResource FontColor}"/>
+                </StackPanel>
+
+                <ListBox VerticalContentAlignment="Center" ItemContainerStyle="{DynamicResource SonglistLimitButton}" ItemsPanel="{DynamicResource SonglistLimitPanel}" 
+                             ItemsSource="{Binding SonglistPaging,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="RecommendSongnumList_SelectionChanged" SelectedIndex="{Binding Page}"
+                         HorizontalContentAlignment="Center" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Width="2000" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             x:Name="RecommendSongnumList" ClipToBounds="False">
+                    <ListBox.Resources>
+                        <Style x:Key="SonglistLimitButton" TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="SnapsToDevicePixels" Value="True"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="#80ffffff"/>
+                            <Setter Property="TextBlock.Foreground" Value="{StaticResource FontColor}"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Width" Value="27"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="5,0,0,0"/>
+                            <Setter Property="Height" Value="23"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <Grid>
+                                            <Border x:Name="Bd" CornerRadius="2" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                                <ContentPresenter  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                            </Border>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="IsMouseOver" Value="True"/>
+                                                    <Condition Property="IsSelected" Value="False"/>
+                                                </MultiTrigger.Conditions>
+                                                <MultiTrigger.Setters>
+                                                    <Setter Property="Foreground" Value="{StaticResource LiangColor}"/>
+                                                    <Setter Property="Background" Value="{StaticResource borderBrusha}"/>
+                                                </MultiTrigger.Setters>
+                                            </MultiTrigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="TextBlock.Foreground" Value="DarkRed"/>
+                                            </Trigger>
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                        <ItemsPanelTemplate x:Key="SonglistLimitPanel">
+                            <StackPanel Orientation="Horizontal" IsItemsHost="True" HorizontalAlignment="Center" Width="2000">
+                                <StackPanel.RenderTransform>
+                                    <TranslateTransform X="0"/>
+                                </StackPanel.RenderTransform>
+                            </StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListBox.Resources>
+                </ListBox>
+
+                <StackPanel Orientation="Horizontal" Height="23" Grid.Column="2" Width="0" x:Name="lastlimit">
+                    <TextBlock FontFamily="{StaticResource iconFont}" Text="&#xe639;" VerticalAlignment="Center" Width="27" Padding="5" Foreground="{StaticResource FontColor}"/>
+                    <Button Width="27" BorderThickness="0" x:Name="lastlimitbutton">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource EmptyStyleInButton}">
+                                <Setter Property="Foreground" Value="{StaticResource FontColorc}"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="{StaticResource borderBrusha}"/>
+                                        <Setter Property="Foreground" Value="{StaticResource LiangColor}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Button Style="{StaticResource ClickButton}" FontFamily="{StaticResource iconFont}" x:Name="rightButton" Command="{Binding NextPage}"
+                        Content="&#xea5e;" RenderTransformOrigin="0.5,0.5">
+                <Button.RenderTransform>
+                    <RotateTransform Angle="90"/>
+                </Button.RenderTransform>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
